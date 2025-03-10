@@ -46,4 +46,33 @@ describe("MultiSelectFilter", () => {
       expect(screen.getAllByText(filterName)).toHaveLength(1)
     );
   });
+
+  it("filters items based on search input", async () => {
+    render(<MultiSelectFilter />);
+
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+
+    const searchBox = screen.getByRole("textbox");
+
+    userEvent.type(searchBox, "Co");
+
+    await waitFor(() => {
+      expect(screen.getByText("Computers")).toBeInTheDocument();
+      expect(screen.getByText("Coffee")).toBeInTheDocument();
+      expect(screen.queryByText("Cats")).not.toBeInTheDocument();
+    });
+  });
+
+  it("updates active filters from localStorage", async () => {
+    const mockFilters = ["Cats", "Coffee"];
+    localStorage.setItem("activeFilters", JSON.stringify(mockFilters));
+
+    render(<MultiSelectFilter />);
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledTimes(1);
+      expect(screen.getAllByText("Cats")).toHaveLength(2);
+      expect(screen.getAllByText("Coffee")).toHaveLength(2);
+    });
+  });
 });

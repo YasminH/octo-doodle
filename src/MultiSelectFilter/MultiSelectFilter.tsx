@@ -16,7 +16,14 @@ export default function MultiSelectFilter() {
         setItems(data.data);
         setFilteredItems(data.data);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .then(() => {
+        const storageItems = localStorage.getItem("activeFilters");
+
+        if (storageItems) {
+          setActiveFilters(JSON.parse(storageItems));
+        }
+      });
   }, []);
 
   const handleCheckboxChange = (value: string) => {
@@ -24,11 +31,17 @@ export default function MultiSelectFilter() {
       (item) => item !== value
     );
     const isNotActive = activeFiltersFiltered.length === activeFilters.length;
+    const newActiveFilters = [...activeFilters, value];
 
     if (isNotActive) {
-      setActiveFilters([...activeFilters, value]);
+      setActiveFilters(newActiveFilters);
+      localStorage.setItem("activeFilters", JSON.stringify(newActiveFilters));
     } else {
       setActiveFilters(activeFiltersFiltered);
+      localStorage.setItem(
+        "activeFilters",
+        JSON.stringify(activeFiltersFiltered)
+      );
     }
   };
 
