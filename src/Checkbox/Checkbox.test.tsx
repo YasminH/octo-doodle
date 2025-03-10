@@ -6,7 +6,7 @@ describe("Checkbox", () => {
   const value = "Example";
 
   it("renders checkbox with expected value, id and name", () => {
-    render(<Checkbox value={value} />);
+    render(<Checkbox value={value} onChange={jest.fn()} />);
 
     const checkbox = screen.getByRole("checkbox");
 
@@ -17,7 +17,7 @@ describe("Checkbox", () => {
   });
 
   it("allows user to check and uncheck the box", async () => {
-    render(<Checkbox value={value} />);
+    render(<Checkbox value={value} onChange={jest.fn()} />);
 
     const checkbox = screen.getByRole("checkbox");
 
