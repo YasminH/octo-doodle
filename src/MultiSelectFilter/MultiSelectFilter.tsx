@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
+import SearchBox from "../SearchBox/SearchBox";
 
 export default function MultiSelectFilter() {
   const [items, setItems] = useState<string[]>([]);
+  const [filteredItems, setFilteredItems] = useState<string[]>([]);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   useEffect(() => {
@@ -10,11 +12,14 @@ export default function MultiSelectFilter() {
 
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setItems(data.data))
+      .then((data) => {
+        setItems(data.data);
+        setFilteredItems(data.data);
+      })
       .catch((error) => console.error(error));
   }, []);
 
-  const handleChange = (value: string) => {
+  const handleCheckboxChange = (value: string) => {
     const activeFiltersFiltered = activeFilters.filter(
       (item) => item !== value
     );
@@ -27,19 +32,35 @@ export default function MultiSelectFilter() {
     }
   };
 
+  const handleSearchBoxChange = (value: string) => {
+    setFilteredItems(
+      items.filter((item) =>
+        item.toLocaleLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
+
   return (
     <>
       {activeFilters.map((item, index) => (
         <div key={index} dangerouslySetInnerHTML={{ __html: item }} />
       ))}
-      <ul>
-        {items?.length &&
-          items.map((item, index) => (
-            <li key={index}>
-              <Checkbox value={item} onChange={handleChange} />
-            </li>
-          ))}
-      </ul>
+      <div>
+        <SearchBox onChange={handleSearchBoxChange} />
+        {filteredItems?.length && (
+          <ul>
+            {filteredItems.map((item) => (
+              <li key={item}>
+                <Checkbox
+                  value={item}
+                  onChange={handleCheckboxChange}
+                  checked={activeFilters.includes(item)}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </>
   );
 }

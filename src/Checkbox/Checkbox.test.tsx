@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import Checkbox from "./Checkbox";
 
 describe("Checkbox", () => {
   const value = "Example";
 
-  it("renders checkbox with expected value, id and name", () => {
+  it("renders with expected value, id and name", () => {
     render(<Checkbox value={value} onChange={jest.fn()} />);
 
     const checkbox = screen.getByRole("checkbox");
@@ -16,15 +15,19 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("name", value);
   });
 
-  it("allows user to check and uncheck the box", async () => {
+  it("renders as checked when checked is true", async () => {
+    render(<Checkbox value={value} onChange={jest.fn()} checked={true} />);
+
+    const checkbox = screen.getByRole("checkbox");
+
+    expect(checkbox).toBeChecked();
+  });
+
+  it("is not checked by default", async () => {
     render(<Checkbox value={value} onChange={jest.fn()} />);
 
     const checkbox = screen.getByRole("checkbox");
 
-    await userEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
-
-    await userEvent.click(checkbox);
     expect(checkbox).not.toBeChecked();
   });
 });
