@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import SearchBox from "../SearchBox/SearchBox";
+import styles from "./MultiSelectFilter.module.scss";
 
 export default function MultiSelectFilter() {
   const [items, setItems] = useState<string[]>([]);
@@ -54,16 +55,26 @@ export default function MultiSelectFilter() {
   };
 
   return (
-    <>
-      {activeFilters.map((item, index) => (
-        <div key={index} dangerouslySetInnerHTML={{ __html: item }} />
-      ))}
+    <div className={styles.container}>
+      <h2 className={styles.title}>Productgroep</h2>
       <div>
         <SearchBox onChange={handleSearchBoxChange} />
-        {filteredItems?.length && (
-          <ul>
+        {activeFilters?.length > 0 && (
+          <div className={styles.pillGroup}>
+            Gekozen filters:
+            {activeFilters.map((item, index) => (
+              <span
+                key={index}
+                dangerouslySetInnerHTML={{ __html: item }}
+                className={styles.pill}
+              />
+            ))}
+          </div>
+        )}
+        {filteredItems?.length > 0 && (
+          <ul className={styles.list}>
             {filteredItems.map((item) => (
-              <li key={item}>
+              <li key={item} className={styles.listItem}>
                 <Checkbox
                   value={item}
                   onChange={handleCheckboxChange}
@@ -74,6 +85,6 @@ export default function MultiSelectFilter() {
           </ul>
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -1,3 +1,5 @@
+import styles from "./Checkbox.module.scss";
+
 type CheckboxProps = {
   value: string;
   onChange: (value: string) => void;
@@ -18,8 +20,13 @@ export default function Checkbox({
         id={value}
         onChange={(e) => onChange(e.target.value)}
         checked={checked}
+        className={styles.input}
       />
-      <label htmlFor={value} dangerouslySetInnerHTML={{ __html: value }} />
+      <label
+        htmlFor={value}
+        dangerouslySetInnerHTML={{ __html: value }}
+        className={styles.label}
+      />
     </>
   );
 }

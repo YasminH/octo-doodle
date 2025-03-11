@@ -1,0 +1,10 @@
+:root {
+  --primary-color: #3262ce;
+  --neutral-0: #f8f8f8;
+  --neutral-1: #c3c2c0;
+  --neutral-2: #2e2e2e;
+}
+
+html {
+  color: var(--neutral-2);
+}
