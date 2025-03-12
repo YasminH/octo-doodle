@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import SearchBox from "../SearchBox/SearchBox";
 import styles from "./MultiSelectFilter.module.scss";
@@ -28,37 +28,32 @@ export default function MultiSelectFilter() {
       });
   }, []);
 
-  const handleCheckboxChange = (value: string) => {
-    const activeFiltersFiltered = activeFilters.filter(
-      (item) => item !== value
-    );
-    const isNotActive = activeFiltersFiltered.length === activeFilters.length;
-    const newActiveFilters = [...activeFilters, value];
+  const toggleFilter = useCallback((value: string) => {
+    setActiveFilters((prevFilters) => {
+      const newFilters = prevFilters.includes(value)
+        ? prevFilters.filter((item) => item !== value)
+        : [...prevFilters, value];
 
-    if (isNotActive) {
-      setActiveFilters(newActiveFilters);
-      localStorage.setItem("activeFilters", JSON.stringify(newActiveFilters));
-    } else {
-      setActiveFilters(activeFiltersFiltered);
-      localStorage.setItem(
-        "activeFilters",
-        JSON.stringify(activeFiltersFiltered)
+      localStorage.setItem("activeFilters", JSON.stringify(newFilters));
+      return newFilters;
+    });
+  }, []);
+
+  const onSearchChange = useCallback(
+    (value: string) => {
+      setFilteredItems(
+        items.filter((item) =>
+          item.toLocaleLowerCase().includes(value.toLowerCase())
+        )
       );
-    }
-  };
-
-  const handleSearchBoxChange = (value: string) => {
-    setFilteredItems(
-      items.filter((item) =>
-        item.toLocaleLowerCase().includes(value.toLowerCase())
-      )
-    );
-  };
+    },
+    [items]
+  );
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Productgroep</h2>
-      <SearchBox onChange={handleSearchBoxChange} />
+      <SearchBox onChange={onSearchChange} />
       {activeFilters?.length > 0 && (
         <div className={styles.activeFilters}>
           Gekozen filters:
@@ -75,7 +70,7 @@ export default function MultiSelectFilter() {
             <li key={item} className={styles.listItem}>
               <Checkbox
                 value={item}
-                onChange={handleCheckboxChange}
+                onChange={toggleFilter}
                 checked={activeFilters.includes(item)}
               />
             </li>
