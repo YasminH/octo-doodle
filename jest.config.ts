@@ -7,6 +7,9 @@ const config: Config = {
   },
   setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"],
   testEnvironment: "jsdom",
+  moduleNameMapper: {
+    "\\.(css|scss)$": "identity-obj-proxy",
+  },
 };
 
 export default config;
