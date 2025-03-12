@@ -30,20 +30,11 @@
   align-items: center;
 }
 
-.pillGroup {
+.activeFilters {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 30px;
   font-size: 1.1rem;
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  height: 25px;
-  padding-inline: 14px;
-  border-radius: 999px;
-  background-color: var(--neutral-1);
 }
