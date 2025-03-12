@@ -1,20 +1,22 @@
 header,
-main {
+main,
+footer {
   padding: 10px;
 
   @media (min-width: $layout-breakpoint-lg) {
     padding: 20px;
+    max-width: 1320px;
+    margin: 0 auto;
   }
 }
 
 main {
   display: grid;
-  max-width: 1020px;
   gap: 10px;
 
   @media (min-width: $layout-breakpoint-lg) {
     padding: 20px;
-    grid-template-columns: 590px 100%;
+    grid-template-columns: 590px auto;
     gap: 20px;
   }
 }
@@ -26,4 +28,14 @@ main {
 .placeholder {
   background-color: var(--neutral-0);
   padding: 20px;
+}
+
+footer {
+  font-size: 0.8rem;
+}
+
+a {
+  text-decoration: none;
+  border-bottom: 2px dotted salmon;
+  color: salmon;
 }
