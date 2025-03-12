@@ -8,9 +8,9 @@
   padding: 0 60px 0 20px;
   border: 2px solid var(--neutral-1);
   border-radius: 8px;
-  font-size: 1.5rem;
 
   @media (min-width: $layout-breakpoint-sm) {
+    font-size: 1.4rem;
     height: 68px;
   }
 }

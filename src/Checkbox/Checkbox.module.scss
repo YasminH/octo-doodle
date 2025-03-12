@@ -6,9 +6,12 @@
 }
 
 .input {
+  --size-base: 18px;
+  --size-sm: 26px;
+
   appearance: none;
-  width: 26px;
-  height: 26px;
+  width: var(--size-base);
+  height: var(--size-base);
   border: 4px solid #fff;
   outline: 2px solid var(--neutral-1);
   margin: 2px;
@@ -21,10 +24,19 @@
       color: var(--primary-color);
     }
   }
+
+  @media (min-width: $layout-breakpoint-sm) {
+    width: var(--size-sm);
+    height: var(--size-sm);
+  }
 }
 
 .label {
-  padding: 4px 4px 4px 18px;
+  padding: 4px 4px 4px 12px;
   height: 100%;
-  font-size: 1.2rem;
+
+  @media (min-width: $layout-breakpoint-sm) {
+    padding: 4px 4px 4px 18px;
+    font-size: 1.2rem;
+  }
 }

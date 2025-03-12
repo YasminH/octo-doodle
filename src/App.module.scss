@@ -1,0 +1,29 @@
+header,
+main {
+  padding: 10px;
+
+  @media (min-width: $layout-breakpoint-lg) {
+    padding: 20px;
+  }
+}
+
+main {
+  display: grid;
+  max-width: 1020px;
+  gap: 10px;
+
+  @media (min-width: $layout-breakpoint-lg) {
+    padding: 20px;
+    grid-template-columns: 590px 100%;
+    gap: 20px;
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.placeholder {
+  background-color: var(--neutral-0);
+  padding: 20px;
+}
