@@ -1,3 +1,10 @@
+.input,
+.label {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .input {
   appearance: none;
   width: 26px;
@@ -5,7 +12,8 @@
   border: 4px solid #fff;
   outline: 2px solid var(--neutral-1);
   margin: 2px;
-  
+  background-color: #fff;
+
   &:checked {
     background-color: var(--primary-color);
 

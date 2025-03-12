@@ -1,12 +1,24 @@
+.container {
+  position: relative;
+}
+
 .input {
   height: 45px;
   width: 100%;
-  padding: 0 20px;
+  padding: 0 60px 0 20px;
   border: 2px solid var(--neutral-1);
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 
   @media (min-width: $layout-breakpoint-sm) {
     height: 68px;
   }
+}
+
+.icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: var(--neutral-2);
 }
